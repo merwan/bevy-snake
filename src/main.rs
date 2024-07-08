@@ -33,7 +33,21 @@ fn spawn_snake(mut commands: Commands) {
         .insert(SnakeHead);
 }
 
-fn snake_movement(mut query: Query<&mut Transform, With<SnakeHead>>) {
+fn snake_movement(
+    keyboard_input: Res<ButtonInput<KeyCode>>,
+    mut query: Query<&mut Transform, With<SnakeHead>>,
+) {
     let mut transform = query.single_mut();
-    transform.translation.y += 2.;
+    if keyboard_input.pressed(KeyCode::ArrowLeft) {
+        transform.translation.x -= 2.;
+    }
+    if keyboard_input.pressed(KeyCode::ArrowRight) {
+        transform.translation.x += 2.;
+    }
+    if keyboard_input.pressed(KeyCode::ArrowDown) {
+        transform.translation.y -= 2.;
+    }
+    if keyboard_input.pressed(KeyCode::ArrowUp) {
+        transform.translation.y += 2.;
+    }
 }
