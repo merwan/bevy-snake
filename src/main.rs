@@ -9,6 +9,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_systems(Startup, (setup_camera, spawn_snake))
+        .add_systems(Update, snake_movement)
         .run();
 }
 
@@ -30,4 +31,10 @@ fn spawn_snake(mut commands: Commands) {
             ..default()
         })
         .insert(SnakeHead);
+}
+
+fn snake_movement(mut query: Query<(&SnakeHead, &mut Transform)>) {
+    for (_head, mut transform) in query.iter_mut() {
+        transform.translation.y += 2.;
+    }
 }
